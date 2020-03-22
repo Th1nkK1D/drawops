@@ -15,6 +15,11 @@ class ColorPool {
   getColor(id) {
     return this.assignedColor[id];
   }
+
+  unassign(id) {
+    this.availableColor.push(this.getColor(id));
+    delete this.assignedColor[id];
+  }
 }
 
 export default ColorPool;

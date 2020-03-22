@@ -35,4 +35,8 @@ io(server).on('connection', socket => {
 	socket.on('draw', drawParams => {
 		socket.broadcast.emit('draw', drawParams);
 	})
+
+	socket.on('disconnect', () => {
+    console.log(`Client ${socket.id} disconnected`);
+  });
 });
