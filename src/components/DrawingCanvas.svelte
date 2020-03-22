@@ -7,16 +7,21 @@
   
     const drawingCanvas = new p5(p => {
       let lastDrawingCoord = null;
+      let assignedColor = 0;
 
       p.setup = () => {
         p.createCanvas(window.innerWidth, window.innerHeight);
 
         p.background(250);
-        p.stroke(0);
-        p.strokeWeight(2);
+        p.strokeWeight(3);
 
-        socket.on('draw', drawParams => {
-          p.line(...drawParams);
+        socket.on('draw', ({ coordinates, color }) => {
+          p.stroke(color);
+          p.line(...coordinates);
+        })
+
+        socket.on('assignColor', color => {
+          assignedColor = color;
         })
       };
 
@@ -25,8 +30,13 @@
           let end = [p.mouseX, p.mouseY];
           let start = lastDrawingCoord || end;
 
+          p.stroke(assignedColor);
           p.line(...start, ...end);
-          socket.emit('draw', [...start, ...end])
+  
+          socket.emit('draw', {
+            coordinates: [...start, ...end],
+            color: assignedColor,
+          })
 
           lastDrawingCoord = [ ...end ];
         } else {
