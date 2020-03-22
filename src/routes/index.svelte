@@ -6,5 +6,4 @@
 	<title>DrawOps</title>	
 </svelte:head>
 
-<h1>DrawOps</h1>
 <DrawingCanvas />

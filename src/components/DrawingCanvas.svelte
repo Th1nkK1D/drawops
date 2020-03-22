@@ -9,7 +9,7 @@
       let lastDrawingCoord = null;
 
       p.setup = () => {
-        p.createCanvas(window.innerWidth, window.innerWidth);
+        p.createCanvas(window.innerWidth, window.innerHeight);
 
         p.background(250);
         p.stroke(0);
